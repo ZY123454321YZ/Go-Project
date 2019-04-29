@@ -13,6 +13,7 @@ func main() {
             who += " " + arg  
         }  
     }  
-    fmt.Println("hello", who)  
+    fmt.Println("hello", who)
+    fmt.Println("test"); 
 }  
 
