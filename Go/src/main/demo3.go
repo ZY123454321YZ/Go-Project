@@ -1,6 +1,25 @@
 package main
-import "fmt"
+import (
+	"fmt"
+	"net/url"
+	"time"
+)
+//定义结构体
+type D4 struct { x,y float64 }
+//定义内置，把一个结构体放入另一个结构体
+type D5 struct {
+	D4
+	z float64
+}
+
+const Liby  = iota
+
+//定义结构体
 func main() {
+	gurl, er := url.Parse("http://www.baidu.com")
+    fmt.Println(gurl.User,er)
+	fmt.Println(gurl.Path,er)
+	fmt.Println(gurl.Host,er)
 	//定义数组
 	type Point [6]float64;
 	type Line [4]Point;
@@ -86,4 +105,93 @@ func main() {
    //弹出最后一个元素
    ali := zhongxing[len(zhongxing)-1]
    fmt.Println(ali)
+
+   var d2 = D4{7,8}
+   d3 := D5{d2,9}
+   fmt.Println(d2)
+   fmt.Println(d3)
+   fmt.Println(d2.x,d2.y,d3.z)
+   fmt.Println(d3.D4 == d2)
+
+   //定义指针
+   var jj int
+   var zk *int
+   var elk **int
+   jj = 0
+   zk = &jj
+   elk = &zk
+   fmt.Println(jj,zk,elk)
+
+   langchao := 70
+   langchao1 := &langchao
+   fmt.Printf("langchao的值为 %v, langchao的指针是 %v ，langchao1指向的变量的值为 %v\n",langchao,langchao1,*langchao1)
+	aaa := 3
+	bbb := 4
+	p1 := &aaa //获取变量a的内存地址，并将其赋值给变量p1
+	p2 := &bbb //获取变量b的内存地址，并将其赋值给变量p2
+	fmt.Printf("a的值为 %v, a的指针是 %v ，p1指向的变量的值为 %v\n",aaa,p1,*p1)
+	fmt.Printf("b的值为 %v, b的指针是 %v ，p2指向的变量的值为 %v\n",bbb,p2,*p2)
+	fmt.Println(demo3(p1,p2))
+	fmt.Printf("a的值为 %v, a的指针是 %v ，p1指向的变量的值为 %v\n",aaa,p1,*p1)
+	fmt.Printf("b的值为 %v, b的指针是 %v ，p2指向的变量的值为 %v\n",bbb,p2,*p2)
+
+	 //定义空指针
+    var ptr *int
+	fmt.Printf("ptr 的值为 : %x\n", ptr  )
+	if(ptr != nil){
+		fmt.Println("true")
+	}else {
+		fmt.Println("false")
+	}
+
+	//多重间接引用
+	z1 := &aaa //获取变量a的内存地址，并将其赋值给变量p1
+	z2 := &z1 //获取变量b的内存地址，并将其赋值给变量p2
+	//aaa = 4
+	fmt.Printf("aaa的值为 %v, z1的指针是 %v ，指向的变量的值为 %v\n",aaa,z1,*z1)
+	fmt.Printf("aaa的值为 %v, z2的指针是 %v ，指向的变量的值为 %v\n",aaa,z2,**z2)
+
+	//for 循环
+	str = "str,message,ok"
+	for i :=0;i<len(str) ;i++  {
+		fmt.Println(str[i])
+	}
+	fmt.Println(say1("k8s"))
+
+	tz := time.Date(2019,time.April,10,23,0,0,0,time.UTC)
+	fmt.Println(tz)
+
+    add := func(base int) func(int) int{
+		return func(n int) int{
+			return base + n
+		}
+	}
+    add5 := add(5)
+    fmt.Println(add5(10))
+    fmt.Println(foo2(60))
 }
+
+func demo3(a,b *int)int  {
+	*a = 5
+	*b = 6
+	return  *a * *b //这里出现连续的两个*，Go编译器会根据上下文自动识别乘法与两个引用
+}
+func say1(message string)string {
+	return message
+}
+
+func foo1(i int) int {
+	i = 100
+	i = 200
+	fmt.Printf("i的值为 %v",i)
+	return i
+}
+//定义defer
+func foo2(i int) int {
+	i = 100
+	defer foo1(4)
+	i = 200
+	return i
+}
+
+
