@@ -3,6 +3,7 @@ import (
 	"fmt"
 	"net/url"
 	"time"
+	"main"
 )
 //定义结构体
 type D4 struct { x,y float64 }
@@ -39,8 +40,10 @@ func main() {
 	//make copy append
 	var aa = [...]int{1,2,3,4,5,6,7,8}
 	var bb = make([]int,6)
+	fmt.Println("bb is " , bb)
 	var cc = make([]byte,5)
     var n1 = copy(bb,aa[0:])
+    fmt.Println("n1 is ",n1)
     var n2 = copy(bb,bb[2:])
     var n3 = copy(cc,"src")
     fmt.Println(n1)
@@ -169,6 +172,8 @@ func main() {
     add5 := add(5)
     fmt.Println(add5(10))
     fmt.Println(foo2(60))
+
+
 }
 
 func demo3(a,b *int)int  {
